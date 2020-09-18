@@ -1,4 +1,4 @@
-"""coco URL Configuration
+"""mysite URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -14,8 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from mysite.core import views
 
 urlpatterns = [
+    path('',views.home, name='home'),
+    path('signup/',views.signup,name='signup'),
+    path('secret/',views.secret_page,name='secret'),
+    path('secret2/',views.SecretPage.as_view(),name='secret2'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]

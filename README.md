@@ -1,1 +1,1 @@
-# coco_django
+# Django_learning
