@@ -68,3 +68,4 @@ class ChildModel(models.Model):
 parent = ParentModel.objects.first()
 #Returns all child models related to parent
 parent.childmodel_set.all()
+
