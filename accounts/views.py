@@ -4,28 +4,22 @@ from .models import *
 
 # Create your views here.
 def home(request):
-    orders = Order.objects.all()
+    surveys = Survey.objects.all()
     customers = Customer.objects.all()
 
     total_customers = customers.count()
-    total_orders = orders.count()
-    delivered = orders.filter(status='Delivered').count()
-    pending = orders.filter(status='Pending').count()
+    total_surveys = surveys.count()
 
-    context = {'orders':orders,'customers':customers,'total_customers':total_customers,\
-               'total_orders':total_orders,'delivered':delivered,'pending':pending}
+    context = {'surveys':surveys,'customers':customers,'total_customers':total_customers,\
+               'total_surveys':total_surveys}
     return render(request,'accounts/dashboard.html',context)
-
-def products(request):
-    products = Product.objects.all()
-    return render(request,'accounts/products.html',{'products':products})
 
 def customer(request,pk):
     customer = Customer.objects.get(id=pk)
 
-    orders = customer.order_set.all()
+    surveys = customer.survey_set.all()
 
-    order_count = orders.count()
+    survey_count = surveys.count()
     
-    context = {'customer':customer,'orders':orders,'order_count':order_count}
+    context = {'customer':customer,'surveys':surveys,'survey_count':survey_count}
     return render(request,'accounts/customer.html',context)
