@@ -11,18 +11,19 @@
 		<h5>CUSTOMERS:</h5>
 		<hr>
 		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
 			<table class="table table-sm">
 				<tr>
 					<th></th>
 					<th>Customer</th>
-					<th>Email</th>
+					<th>Phone</th>
 				</tr>
 
 				{% for customer in customers %}
 					<tr>
 						<td><a class="btn btn-sm btn-info" href="{% url 'customer' customer.id %}">View</a></td>
 						<td>{{customer.name}}</td>
-						<td>{{customer.email}}</td>
+						<td>{{customer.phone}}</td>
 					</tr>
 				{% endfor %}
 
@@ -31,27 +32,26 @@
 	</div>
 
 	<div class="col-md-7">
-		<h5>Past Survey</h5>
+		<h5>LAST 5 ORDERS</h5>
 		<hr>
 		<div class="card card-body">
+			
 			<table class="table table-sm">
 				<tr>
-					<th>Name</th>
-					<th>Date Created</th>
-					<th>Overall Score</th>
-					<th>Overall Archive</th>
-					<th>More</th>
+					<th>Product</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>Update</th>
 					<th>Remove</th>
 				</tr>
 
-				{% for survey in surveys %}
+				{% for order in orders %}
 					<tr>
-						<td>{{survey.customer.name}}</td>
-						<td>{{survey.date_created}}</td>
-						<td>{{survey.score}}</td>
-						<td>{{survey.archive}}</td>
-						<td><a class="btn btn-sm btn-info" href="">More</a></td>
-						<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+						<td>{{order.product.name}}</td>
+						<td>{{order.date_created}}</td>
+						<td>{{order.status}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>
 					</tr>
 				{% endfor %}
 		

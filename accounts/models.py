@@ -10,19 +10,38 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
-class Survey(models.Model):
+
+class Tag(models.Model):
+    name = models.CharField(max_length=200,null=True)
+    def __str__(self):
+        return self.name
+
+
+class Product(models.Model):
+    CATEGORY = [
+        ('Indoor','Indoor'),
+        ('Out Door','Out Door'),
+    ]
+    name = models.CharField(max_length=200,null=True)
+    price = models.FloatField()
+    category = models.CharField(max_length=200,null=True,choices=CATEGORY)
+    description = models.CharField(max_length=200,null=True,blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(Tag)
+    def __str__(self):
+        return self.name
+
+
+class Order(models.Model):
     STATUS = [
-        ('Creature of Comfort','Creature of Comfort'),
-        ('Protector of Habit','Protector of Habit'),
-        ('Navigator of Discomfort','Navigator of Discomfort'),
-        ('Pioneer of Curiosity','Pioneer of Curiosity'),
-        ('Challenger of Norms','Challenger of Norms'),
-        ('Bastion of Cohesion','Bastion of Cohesion'),
+        ('Pending','Pending'),
+        ('Out for delivery','Out for delivery'),
+        ('Delivered','Delivered'),
     ]
     customer = models.ForeignKey(Customer,null=True,on_delete=models.SET_NULL)
-    score = models.IntegerField()
-    archive = models.CharField(max_length=200,null=True,choices=STATUS)
+    product = models.ForeignKey(Product,null=True,on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=200,null=True,choices=STATUS)
 
     def __str__(self):
-        return '{}_{}'.format(self.customer.name,self.id)
+        return self.product.name
